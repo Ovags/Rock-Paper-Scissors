@@ -5,6 +5,9 @@ const resultsContainer = document.querySelector('#results-container');
 const scoreContainer = document.querySelector('#score');
 let score = [0,0];
 scoreContainer.textContent = "You "+score[0]+" : "+score[1]+" Computer";
+const roundContainer = document.querySelector('#round');
+let round = 1;
+roundContainer.textContent = "Round 1";
 
 function computerPlay(){
     let result = parseInt(Math.random()*3+1);
@@ -19,6 +22,7 @@ function computerPlay(){
 }
 
 function playARound(playerSelection, computerSelection){
+    roundContainer.textContent = "Round "+ ++round;
     if (playerSelection==="rock"){
         if (computerSelection==="rock"){
             return "Rock vs rock... It's a draw!";

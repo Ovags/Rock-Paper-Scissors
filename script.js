@@ -2,6 +2,9 @@ const buttonRock = document.querySelector('#rock');
 const buttonPaper = document.querySelector('#paper');
 const buttonScissors = document.querySelector('#scissors');
 const resultsContainer = document.querySelector('#results-container');
+const scoreContainer = document.querySelector('#score');
+let score = [0,0];
+scoreContainer.textContent = "You "+score[0]+" : "+score[1]+" Computer";
 
 function computerPlay(){
     let result = parseInt(Math.random()*3+1);
@@ -20,18 +23,31 @@ function playARound(playerSelection, computerSelection){
         if (computerSelection==="rock"){
             return "Rock vs rock... It's a draw!";
         }if (computerSelection==="paper"){
+            score[1]++;
+            scoreContainer.textContent = "You "+score[0]+" : "+score[1]+" Computer";
             return "Rock vs paper... You lose!";
         }
+        score[0]++;
+        scoreContainer.textContent = "You "+score[0]+" : "+score[1]+" Computer";
         return "Rock vs scissors... You win!";
     }if (playerSelection==="paper"){
         if (computerSelection==="rock"){
+            score[0]++;
+            scoreContainer.textContent = "You "+score[0]+" : "+score[1]+" Computer";
             return "Paper vs rock... You win!";
         }if (computerSelection==="paper"){
             return "Paper vs paper... It's a draw!";
-        }return "Paper vs scissors... You lose!";
+        }
+        score[1]++;
+        scoreContainer.textContent = "You "+score[0]+" : "+score[1]+" Computer";
+        return "Paper vs scissors... You lose!";
     }if (computerSelection==="rock"){
+        score[1]++;
+        scoreContainer.textContent = "You "+score[0]+" : "+score[1]+" Computer";
         return "Scissors vs rock... You lose!";
     }if (computerSelection==="paper"){
+        score[0]++;
+        scoreContainer.textContent = "You "+score[0]+" : "+score[1]+" Computer";
         return "Scissors vs paper... You win!";
     } return ("Scissors vs scissors... It's a draw!");
 }
@@ -59,7 +75,6 @@ function game(){
         console.log();
         let playerSelection=prompt("Input your choice (rock, paper or scissors");
         let result=playARound(playerSelection, computerPlay());
-        console.log(result);
         if ((result==="Rock vs rock... It's a draw!")||
                 (result==="Paper vs paper... It's a draw!")||
                         (result==="Scissors vs scissors... It's a draw!")){

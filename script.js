@@ -40,9 +40,13 @@ function game(){
         let playerSelection=prompt("Input your choice (rock, paper or scissors");
         let result=playARound(playerSelection, computerPlay());
         console.log(result);
-        if ((result==="Rock vs rock... It's a draw!")||(result==="Paper vs paper... It's a draw!")||(result==="Scissors vs scissors... It's a draw!")){
+        if ((result==="Rock vs rock... It's a draw!")||
+                (result==="Paper vs paper... It's a draw!")||
+                        (result==="Scissors vs scissors... It's a draw!")){
             i--;
-        }else if(result==="Rock vs scissors... You win!"||result==="Paper vs rock... You win!"||result==="Scissors vs paper... You win!"){
+        }else if(result==="Rock vs scissors... You win!"||
+                result==="Paper vs rock... You win!"||
+                        result==="Scissors vs paper... You win!"){
             playerScore++;
         }else{
             computerScore++;

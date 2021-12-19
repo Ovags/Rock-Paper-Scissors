@@ -1,3 +1,8 @@
+const buttonRock = document.querySelector('#rock');
+const buttonPaper = document.querySelector('#paper');
+const buttonScissors = document.querySelector('#scissors');
+const resultsContainer = document.querySelector('#results-container');
+
 function computerPlay(){
     let result = parseInt(Math.random()*3+1);
     if (result===1){
@@ -30,6 +35,21 @@ function playARound(playerSelection, computerSelection){
         return "Scissors vs paper... You win!";
     } return ("Scissors vs scissors... It's a draw!");
 }
+
+buttonRock.addEventListener('click', function e(){
+    const cp = computerPlay();
+    resultsContainer.textContent = playARound("rock",cp);
+});
+
+buttonPaper.addEventListener('click', function e(){
+    const cp = computerPlay();
+    resultsContainer.textContent = playARound("paper",cp);
+});
+
+buttonScissors.addEventListener('click', function e(){
+    const cp = computerPlay();
+    resultsContainer.textContent = playARound("scissors",cp);
+});
 
 function game(){
     let playerScore=0;

@@ -1,3 +1,4 @@
+const body = document.querySelector('body');
 const buttonRock = document.querySelector('#rock');
 const buttonPaper = document.querySelector('#paper');
 const buttonScissors = document.querySelector('#scissors');
@@ -8,6 +9,16 @@ scoreContainer.textContent = "You "+score[0]+" : "+score[1]+" Computer";
 const roundContainer = document.querySelector('#round');
 let round = 1;
 roundContainer.textContent = "Round 1";
+const finalScoreContainer = document.createElement('div');
+const finalScoreDiv = document.createElement('div');
+const winOrLoseDiv = document.createElement('div');
+const finalRoundDiv = document.createElement('div');
+const finalScoreTextDiv = document.createElement('div');
+const finalScoreScoreDiv = document.createElement('div');
+const playNewGameButton = document.createElement('button');
+const roundDiv = document.querySelector('#round');
+const scoreDiv = document.querySelector('#score');
+const buttonsContainer = document.querySelector('#buttons-container');
 
 function computerPlay(){
     let result = parseInt(Math.random()*3+1);
@@ -22,6 +33,7 @@ function computerPlay(){
 }
 
 function playARound(playerSelection, computerSelection){
+    let result;
     roundContainer.textContent = "Round "+ ++round;
     if (playerSelection==="rock"){
         if (computerSelection==="rock"){
@@ -56,51 +68,118 @@ function playARound(playerSelection, computerSelection){
     } return ("Scissors vs scissors... It's a draw!");
 }
 
-buttonRock.addEventListener('click', function e(){
+function isEndOfGame(playerSelection){
     const cp = computerPlay();
-    resultsContainer.textContent = playARound("rock",cp);
+    resultsContainer.textContent = playARound(playerSelection, cp);
+    if (score[0]===5||score[1]===5){
+        endOfGame();
+    }
+}
+
+function endOfGame(){
+    displayFinalScore();
+    resetEverything();
+}
+
+function displayFinalScore(){
+    setFinalScoreContainer();
+    setWinOrLoseDiv();
+    setFinalRoundDiv();
+    setFinalScoreDiv();
+    makeInvisible(roundDiv);
+    makeInvisible(scoreDiv);
+    makeInvisible(buttonsContainer);
+    setPlayNewGameButton();
+}
+
+function setFinalScoreContainer(){
+    makeVisible(finalScoreContainer)
+    finalScoreContainer.id = 'final-score-container';
+    body.appendChild(finalScoreContainer);
+}
+
+function setWinOrLoseDiv(){
+    winOrLoseDiv.id = 'win-or-lose';
+    if (isWon()){
+       winOrLoseDiv.textContent = 'You won!';
+    }else{winOrLoseDiv.textContent = 'You lost...'}
+    finalScoreContainer.appendChild(winOrLoseDiv);
+}
+
+function isWon(){
+    if (score[0]===5) return true;
+    if(score[1]===5) return false;
+    else {
+        console.log('Error with score : '+score[0]+' '+score[1]);
+    }
+}
+
+function setFinalRoundDiv(){
+    finalRoundDiv.id = 'final-round';
+    finalRoundDiv.textContent = 'in '+round+' rounds';
+    finalScoreContainer.appendChild(finalRoundDiv);
+}
+
+function setFinalScoreDiv(){
+    finalScoreDiv.id = 'final-score';
+    finalScoreContainer.appendChild(finalScoreDiv);
+    setFinalScoreTextDiv();
+    setFinalScoreScoreDiv(); 
+}
+
+function setFinalScoreTextDiv(){
+    finalScoreTextDiv.id = 'text';
+    finalScoreTextDiv.textContent = 'with a final score of :';
+    finalScoreDiv.appendChild(finalScoreTextDiv);
+}
+
+function setFinalScoreScoreDiv(){
+    finalScoreScoreDiv.textContent = 'You '+score[0]+' : '+
+        score[1]+' Computer';
+    finalScoreDiv.appendChild(finalScoreScoreDiv);
+}
+
+function makeInvisible(mustDisappear){
+    mustDisappear.classList.add('invisible');
+}
+
+function setPlayNewGameButton(){
+    playNewGameButton.id ='new-game-button';
+    playNewGameButton.textContent = 'Play new game';
+    finalScoreContainer.appendChild(playNewGameButton);
+    playNewGameButton.addEventListener('click',function e(){
+        playNewGame();
+    });
+}
+
+function resetEverything(){
+    round=1;
+    score=[0,0];
+    scoreContainer.textContent="";
+    resultsContainer.textContent="";
+}
+
+function playNewGame(){
+    makeVisible(roundDiv);
+    makeVisible(scoreDiv);
+    makeVisible(buttonsContainer);
+    makeInvisible(finalScoreContainer);
+    roundContainer.textContent = "Round 1";
+    scoreContainer.textContent = "You "+score[0]+" : "+score[1]+" Computer";
+}
+
+function makeVisible(elementToMakeVisible){
+    elementToMakeVisible.classList.remove('invisible');
+}
+
+buttonRock.addEventListener('click', function e(){
+    isEndOfGame("rock");
 });
 
 buttonPaper.addEventListener('click', function e(){
-    const cp = computerPlay();
-    resultsContainer.textContent = playARound("paper",cp);
+    isEndOfGame("paper");
 });
 
 buttonScissors.addEventListener('click', function e(){
-    const cp = computerPlay();
-    resultsContainer.textContent = playARound("scissors",cp);
+    isEndOfGame("scissors");
 });
-
-function game(){
-    let playerScore=0;
-    let computerScore=0;
-    for(let i=0;i<5;i++){
-        console.log("Round "+(i+1)+" fight!!!");
-        console.log();
-        let playerSelection=prompt("Input your choice (rock, paper or scissors");
-        let result=playARound(playerSelection, computerPlay());
-        if ((result==="Rock vs rock... It's a draw!")||
-                (result==="Paper vs paper... It's a draw!")||
-                        (result==="Scissors vs scissors... It's a draw!")){
-            i--;
-        }else if(result==="Rock vs scissors... You win!"||
-                result==="Paper vs rock... You win!"||
-                        result==="Scissors vs paper... You win!"){
-            playerScore++;
-        }else{
-            computerScore++;
-        }
-
-        if((computerScore===3&&playerScore===0)||(computerScore===0&&playerScore===3)){
-            break;
-        }
-    }
-
-    console.log("It's over! Final score : ");
-    console.log("Player : "+playerScore+" - Computer : "+computerScore);
-    if(playerScore>computerScore){
-        console.log("You win!!!");
-    }else{
-        console.log("You lose...");
-    }
-}

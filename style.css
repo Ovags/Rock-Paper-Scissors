@@ -1,4 +1,72 @@
 .invisible{
     visibility: hidden;
     height: 0px;
+    gap: 0px;
+    margin-top: -30px;
+}
+
+html{
+    background-color: rgb(14, 52, 70);
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+body{
+    background-color: rgb(18, 60, 80);
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 50px;
+    padding-top: 65px;
+    gap: 20px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: rgb(196, 255, 250);
+}
+
+#round, #win-or-lose{
+    font-weight: bolder;
+    font-size: 36px;
+}
+
+#buttons-container {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    font-size: 18px;
+    border: 2px solid white;
+    background-color: rgb(33, 131, 173);
+    color: white;
+    border-radius: 7px;
+    padding: 5px;
+    width: 100px;
+    box-shadow: 0 8px 16px 0 rgb(10, 34, 46)/*, 0 8px 16px 0 black*/;
+    transition: color 0.5s;
+}
+
+button:active {
+    background-color: white;
+    color: rgb(33, 131, 173);
+    border: 2px solid rgb(33, 131, 173);
+}
+
+#final-score-container, #final-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+#final-score-container{
+}
+
+#final-score {
 }

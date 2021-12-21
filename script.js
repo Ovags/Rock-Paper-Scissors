@@ -33,39 +33,19 @@ function computerPlay(){
 }
 
 function playARound(playerSelection, computerSelection){
-    let result;
-    roundContainer.textContent = "Round "+ ++round;
-    if (playerSelection==="rock"){
-        if (computerSelection==="rock"){
-            return "Rock vs rock... It's a draw!";
-        }if (computerSelection==="paper"){
-            score[1]++;
-            scoreContainer.textContent = "You "+score[0]+" : "+score[1]+" Computer";
-            return "Rock vs paper... You lose!";
-        }
-        score[0]++;
-        scoreContainer.textContent = "You "+score[0]+" : "+score[1]+" Computer";
-        return "Rock vs scissors... You win!";
-    }if (playerSelection==="paper"){
-        if (computerSelection==="rock"){
+    return playerSelection+" vs "+computerSelection+"... "+roundResult();
+}
+
+function roundResult(playerSelection, computerSelection) {
+    if ((playerSelection==="rock"&&computerSelection==="scissors")||
+        (playerSelection==="paper"&&computerSelection==="rock")||
+        (playerSelection==="scissors"&&computerSelection==="paper")){
             score[0]++;
-            scoreContainer.textContent = "You "+score[0]+" : "+score[1]+" Computer";
-            return "Paper vs rock... You win!";
-        }if (computerSelection==="paper"){
-            return "Paper vs paper... It's a draw!";
-        }
-        score[1]++;
-        scoreContainer.textContent = "You "+score[0]+" : "+score[1]+" Computer";
-        return "Paper vs scissors... You lose!";
-    }if (computerSelection==="rock"){
-        score[1]++;
-        scoreContainer.textContent = "You "+score[0]+" : "+score[1]+" Computer";
-        return "Scissors vs rock... You lose!";
-    }if (computerSelection==="paper"){
-        score[0]++;
-        scoreContainer.textContent = "You "+score[0]+" : "+score[1]+" Computer";
-        return "Scissors vs paper... You win!";
-    } return ("Scissors vs scissors... It's a draw!");
+            return "You win!";
+        }else if (playerSelection===computerSelection){
+            return "It's a draw!";
+        }score[1]++;
+        return "You lose...";
 }
 
 function isEndOfGame(playerSelection){

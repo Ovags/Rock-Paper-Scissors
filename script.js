@@ -33,7 +33,7 @@ function computerPlay(){
 }
 
 function playARound(playerSelection, computerSelection){
-    return playerSelection+" vs "+computerSelection+"... "+roundResult();
+    return playerSelection+" vs "+computerSelection+"... "+roundResult(playerSelection, computerSelection);
 }
 
 function roundResult(playerSelection, computerSelection) {
@@ -41,11 +41,18 @@ function roundResult(playerSelection, computerSelection) {
         (playerSelection==="paper"&&computerSelection==="rock")||
         (playerSelection==="scissors"&&computerSelection==="paper")){
             score[0]++;
+            updateScore();
             return "You win!";
         }else if (playerSelection===computerSelection){
             return "It's a draw!";
         }score[1]++;
+        console.log("bite"+score);
+        updateScore();
         return "You lose...";
+}
+
+function updateScore(){
+    scoreDiv.textContent = "You "+score[0]+" : "+score[1]+" Computer";
 }
 
 function isEndOfGame(playerSelection){
